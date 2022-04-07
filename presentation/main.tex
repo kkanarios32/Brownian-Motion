@@ -18,23 +18,33 @@
 
 \begin{frame}[t]
   \frametitle{Background}
-  \begin{onlyenv}<1-2>
+  \begin{onlyenv}<1-9>
     \begin{definition}
-      A real-valued random variable $X$ is a mapping $X : \Omega \to \mathbb{R}$. Where $\Omega$ is the \textbf{sample space} and $\mathbb{P}$ is the measure of the \textbf{probability space}, such that $\mathbb{P}(\Omega) = 1$.
+      A real-valued random variable $X$ is a mapping $X : \Omega \to \mathbb{R}$. Here, $\Omega$ is the \textbf{sample space} and $\mathbb{P}$ is the measure of the \textbf{probability space}, such that $\mathbb{P}(\Omega) = 1$.
     \end{definition}
   \end{onlyenv}
-  \begin{onlyenv}<2>
-    \begin{block}{Definition translated into english}
-      \begin{enumerate}
-        \item 
-          Unbeknownst to us, someone chooses a random $\omega \in \Omega$. Then we see the $X(\omega) \in \mathbb{R}$.
-        \item 
-          We cannot see the corresponding $\omega \in \Omega$, but the $X(\omega) \in \mathbb{R}$ gives us partial information about $\omega$.
-        \item $\mathbb{P}$ tells us how likely subsets $A \subseteq \omega$ are to occur.
-      \end{enumerate}
-    \end{block}
+  \begin{onlyenv}<2-5>
+      \begin{block}{Note}
+        Intuition for a \textbf{measure}:
+        \begin{enumerate}
+          \item <3-> In $\mathbb{R}$: length,
+          \item <4-> In $\mathbb{R}^2$: area,
+          \item <5-> In $\mathbb{R}^3$: volume.
+        \end{enumerate}
+      \end{block}
   \end{onlyenv}
-  \begin{onlyenv}<3>
+  \begin{onlyenv}<6-9>
+      \begin{block}{Definition translated into english}
+        \begin{enumerate}
+          \item<7->
+            Unbeknownst to us, someone chooses a random $\omega \in \Omega$. Then we see the $X(\omega) \in \mathbb{R}$.
+          \item<8->
+            We cannot see the corresponding $\omega \in \Omega$, but the $X(\omega) \in \mathbb{R}$ gives us partial information about $\omega$.
+          \item<9-> $\mathbb{P}$ tells us how likely subsets $A \subseteq \omega$ are to occur.
+        \end{enumerate}
+      \end{block}
+  \end{onlyenv}
+  \begin{onlyenv}<10>
     \begin{example}
       Consider the case where you flip a coin. Using our previous definition, this could be described as $\Omega = \{\text{heads}, \text{tails}\}$ and \\
       \vskip 5pt
@@ -46,12 +56,12 @@
       This would yield the familiar notation of $\mathbb{P}(X = 1) = .5$ and $\mathbb{P}(X = -1) = .5$ for a fair coin.
     \end{example} 
     \end{onlyenv}
-    \begin{onlyenv}<4->
+    \begin{onlyenv}<11->
       \begin{definition}
         A \textbf{stochastic process} is a family of random variables indexed by a time parameter $t \geq 0$.
       \end{definition}
     \end{onlyenv}
-    \begin{onlyenv}<5->
+    \begin{onlyenv}<12->
       \begin{example}
         A sequence of coin flips. At each time $t$ your process corresponds to a random variable (aka coinflip) $X_t$.
       \end{example}
