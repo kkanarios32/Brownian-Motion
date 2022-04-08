@@ -40,7 +40,7 @@
             Unbeknownst to us, someone chooses a random $\omega \in \Omega$. Then we see the $X(\omega) \in \mathbb{R}$.
           \item<8->
             We cannot see the corresponding $\omega \in \Omega$, but the $X(\omega) \in \mathbb{R}$ gives us partial information about $\omega$.
-          \item<9-> $\mathbb{P}$ tells us how likely subsets $A \subseteq \omega$ are to occur.
+          \item<9-> $\mathbb{P}$ tells us how likely subsets $A \subseteq \Omega$ are to occur.
         \end{enumerate}
       \end{block}
   \end{onlyenv}
@@ -51,7 +51,7 @@
       $X(\omega) = \begin{cases}
         1, &\text{ if }\omega = \text{heads}\\
         -1, &\text{ if }\omega = \text{tails}\\
-      \end{cases}$ where $\omega \in \Omega$. \\
+      \end{cases}$ \hspace*{10mm} where $\omega \in \Omega$. \\
       \vskip 5pt
       This would yield the familiar notation of $\mathbb{P}(X = 1) = .5$ and $\mathbb{P}(X = -1) = .5$ for a fair coin.
     \end{example} 
@@ -73,12 +73,17 @@
   \frametitle{Wiener Process}
   \begin{onlyenv}<1-5>
   \begin{definition}
-    A stochastic process $W$ is called a \textbf{Wiener process} if the follow conditions hold
+    A stochastic process $W$ is called a \textbf{Wiener process} if the follow conditions hold:
     \begin{enumerate}
-      \item<2-> $W_0 = 0$
-      \item<3-> The process $W$ has independent increments
-      \item<4-> For $s < t$ the random variable $W_t - W_s$ has the Gaussian distribution $\mathcal{N}(0,t-s)$
-      \item<5-> $W$ has continuous trajectories
+      \item<2-> $W_0 = 0$,
+      \item<3-> The process $W$ has independent increments,
+      \item<4->
+          For $s < t$ the random variable $W_t - W_s$ has the Gaussian distribution $\mathcal{N}(0,t-s)$,
+          \begin{figure}
+            \centering
+            \includegraphics[width=.5\linewidth]{graphics/normal-distribution.png}
+          \end{figure}
+      \item<5-> $W$ has continuous trajectories.
     \end{enumerate}
   \end{definition}
   \end{onlyenv}
@@ -97,7 +102,7 @@
   \frametitle{Quadratic Variation}
   \begin{onlyenv}<1->
     \begin{definition}
-      Let $X$ be a stochastic process. Suppose $P$ is a partition of $[0,t]$ denoted $t_k$ and let $\lVert P \rVert$ be the mesh of the partition then the \textbf{quadratic variation} of $X$ on $P$ is defined to be:
+      Let $X$ be a stochastic process. Suppose $P$ is a partition of $[0,t]$ denoted $t_k$ and let $\lVert P \rVert$ be the mesh of the partition then the \textbf{quadratic variation} of $X$ is defined to be:
           \begin{align*}
             [X]_t = \lim\limits_{\lVert P \rVert \to 0} \displaystyle\sum_{k = 1}^{n}(X_{t_k} - X_{t_{k-1}})^2
           \end{align*}
@@ -106,6 +111,43 @@
   \begin{onlyenv}<2->
     \begin{block}{Comments}
       Note that Quadratic Variation itself is a stochastic process. An intuitive way to think about quadratic variation is the internal clock of a process, describing how randomness accumulates over time.
+    \end{block}
+  \end{onlyenv}
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{The Stochastic Integral}
+  \begin{onlyenv}<1-3>
+    \begin{block}{The Problem}
+      Integrals of the form $\displaystyle\int_{0}^{t}g_s dW_s$ for some stochastic process $g_s$.
+    \end{block}
+  \end{onlyenv}
+  \begin{onlyenv}<2-3>
+    \begin{block}{Possible Solution 1}
+      Try to define like the Riemman Integral
+      \begin{enumerate}
+        \item<2-> $\displaystyle\sum_{k = 1}^{n}g_s(W_{t_{k+1}} - W_{t_{k}})$
+        \item<3-> Not possible due to locally unbounded variation of a Wiener Process.
+      \end{enumerate}
+    \end{block}
+  \end{onlyenv}
+  \begin{onlyenv}<4-5>
+    \begin{definition}
+      A stochastic process is \textbf{simple} on $[a,b]$ when there exists deterministic points in time $a = t_0 < t_1 < \dots < t_n = b$ such that $g_s = g_{t_k}$ for all $s \in [t_k, t_{k+1}]$.
+    \end{definition}
+  \end{onlyenv}
+  \begin{onlyenv}<5>
+      \begin{block}{Real Solution}
+        Now we can define the stochastic integral by
+        \begin{align*}
+          \displaystyle\int_{a}^{b}g_s dW_s = \displaystyle\sum_{k = 0}^{n - 1}g_{t_k}[W_{t_{k+1}} - W_{t_{k}}]
+        \end{align*}
+        For some simple stochastic process $g_s$.
+      \end{block}
+  \end{onlyenv}
+  \begin{onlyenv}<6->
+    \begin{block}{How do we generalize this?}
     \end{block}
   \end{onlyenv}
 \end{frame}
@@ -121,12 +163,12 @@
       \begin{block}{Proof.}
         Let $P = \{0 = t_0 \leq t_1 \leq \dots \leq t_m = t\}$ be a partition of the interval $[0,t]$. Then the quadratic variation on $P$ is
         \begin{align*}
-          [W]^{P} &= \displaystyle\sum_{k = 1}^{m}(W_{t_k} - W_{t_{k-1}})^2 
+          [W]^{P}_{t} &= \displaystyle\sum_{k = 1}^{m}(W_{t_k} - W_{t_{k-1}})^2 
         \end{align*}
         \onslide<3->{
           Therefore,
           \begin{align*}
-            E\left[[W]^{P}\right] &= \displaystyle\sum_{k = 1}^{m}E\left[(W_{t_k} - W_{t_{k-1}})^2\right]
+            \mathbb{E}\left[[W]^{P}_{t}\right] &= \displaystyle\sum_{k = 1}^{m}\mathbb{E}\left[(W_{t_k} - W_{t_{k-1}})^2\right]
           \end{align*}
         }
       \end{block}
@@ -136,41 +178,41 @@
         \onslide<5->{
         It is a well known fact that 
         \begin{align*}
-          Var(X) = E(X^2) - (E(X))^2
+          Var(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2
         \end{align*}
         }
         \onslide<6->{
-        Since $W_{t_{k+1}} - W_{t_{k}} \in \mathcal{N}(0, t_{k+1} - t_{k})$, 
+        Since $W_{t_{k}} - W_{t_{k-1}} \in \mathcal{N}(0, t_{k} - t_{k-1})$, 
         \begin{align*}
-          E(W_{t_{i+1}} - W_{t_{i}}) = 0
+          \mathbb{E}(W_{t_{k}} - W_{t_{k-1}}) = 0
         \end{align*}
         }
         \onslide<7->{ 
         It follows that 
         \begin{align*}
-          (E(W_{t_{k+1}} - W_{t_{k}})^2) = 0 
+          (\mathbb{E}(W_{t_{k}} - W_{t_{k-1}})^2) = 0 
         \end{align*}
         }
         \onslide<8->{
-        Thus, $Var(W_{t_{k+1}} - W_{t_{k}}) = E((W_{t_{k+1}} - W_{t_{k}})^2)$.
+        Thus, $Var(W_{t_{k}} - W_{t_{k-1}}) = E((W_{t_{k}} - W_{t_{k-1}})^2)$.
         }
       \end{block}
     \end{onlyenv}
     \begin{onlyenv}<9-11>
       \begin{proof}
-      Since $E[(W_{t_{i+1}} - W_{t_{i}})^2] = Var\left[W_{t_{i+1}} - W_{t_{i}}]$, we can write:
+        Since $\mathbb{E}[(W_{t_{k}} - W_{t_{k-1}})^2] = Var\left[W_{t_{k}} - W_{t_{k-1}}]$, we can write:
       \begin{align*}
-        E\left[[W]^{P}\right] &= \displaystyle\sum_{k = 1}^{m}Var\left[W_{t_k} - W_{t_{k-1}}\right]
+        \mathbb{E}\left[[W]^{P}_{t}\right] &= \displaystyle\sum_{k = 1}^{m}Var\left[W_{t_k} - W_{t_{k-1}}\right]
       \end{align*}
       \onslide<10->{
         Using $W_{t_k} - W_{t_{k-1}} \in \mathcal{N}(0, t_k - t_{k-1})$:
         \begin{align*}
-          E\left[[W]^{P}\right] &= \displaystyle\sum_{k = 1}^{m}(t_{k} - t_{k-1}) \\
+          \mathbb{E}\left[[W]^{P}_{t}\right] &= \displaystyle\sum_{k = 1}^{m}(t_{k} - t_{k-1}) \\
           &= t
         \end{align*}
       }
       \onslide<11->{ 
-        Finally, from the definition of discrete expectation we have that $E[[W]^{P}] \coloneqq \lim\limits_{\lVert P \rVert \to 0} [W]^{P} \coloneqq t$
+        Now we must show $\mathbb{E}([W]^{P}_{t}) = [W]_t = t$.
       }
       \end{proof}
     \end{onlyenv}
@@ -184,39 +226,117 @@
         \begin{align*}
           (dW_t)^2 = dt
         \end{align*}
+        This is one third of something called Ito's multiplication table.
       \end{block}
   \end{onlyenv}
 \end{frame}
 
 \begin{frame}[t]
-  \frametitle{The Stochastic Integral}
-  \begin{onlyenv}<1-3>
-    \begin{block}{The Problem}
-      Integrals of the form $\displaystyle\int_{0}^{t}g_s dW_s$.
-    \end{block}
-  \end{onlyenv}
-  \begin{onlyenv}<2-3>
-    \begin{block}{Possible Solution 1}
-      Try to define like the Riemman Integral
-      \begin{enumerate}
-        \item<2-> $\displaystyle\sum_{k = 1}^{n}g_s(W_{t_{k+1}} - W_{t_{k}})$
-        \item<3-> Not possible due to locally unbounded variation of a Wiener Process.
-      \end{enumerate}
-    \end{block}
-  \end{onlyenv}
-  \begin{onlyenv}<4->
-    \begin{definition}
-      A function is \textbf{simple} on $[a,b]$ when there exists deterministic points in time $a = t_0 < t_1 < \dots < t_n = b$ such that $g_s = g_{t_k}$ for all $s \in [t_k, t_{k+1}]$.
+  \frametitle{Ito's Multiplication Table}
+  \begin{onlyenv}<1-4>
+  \begin{definition}
+    \textbf{Ito's multiplication table} is: 
+    \begin{center}
+      \renewcommand\arraystretch{1.3}
+      \setlength\doublerulesep{0pt}
+      \begin{tabular}{r||*{4}{2|}}
+       & $dt$ & $dW_t$ \\
+      \hline\hline
+      $dt$ & 0 & 0 \\ 
+      \hline
+      $dW_t$ & 0 & $dt$ \\ 
+      \end{tabular}
+    \end{center} 
     \end{definition}
+    We have already shown the only interesting result: $(dW_t)^2 = dt$.
+  \end{onlyenv}
+  \begin{onlyenv}<2-4>
+    \begin{proof}[Quick sketch.]
+      Suppose you are integrating on the interval $[a,b]$. Partition [a,b] into $N$ increments. Then $dt \sim \frac{1}{N}$ and $(dt)^2 \sim \frac{1}{N^2}$. It follows that:
+      \begin{align*}
+        \displaystyle\sum_{i = 1}^{N}\frac{1}{N^2} &= \frac{1}{N} \\
+        \lim\limits_{N \to \infty}\displaystyle\sum_{i = 1}^{N}\frac{1}{N^2} &= \lim\limits_{N \to \infty} \frac{1}{N} = \displaystyle\int_{a}^{b}(dt)^2 = 0
+      \end{align*}
+    \end{proof}
   \end{onlyenv}
   \begin{onlyenv}<5->
-      \begin{block}{Real Solution}
-        Now we can define the stochastic integral by
-        \begin{align*}
-          \displaystyle\int_{a}^{b}g_s dW_s = \displaystyle\sum_{k = 0}^{n - 1}g_{t_k}[W_{t_{k+1}} - W_{t_{k}}]
-        \end{align*}
-        For some simple function $g_s$.
-      \end{block}
+    \begin{proof}[Quick sketch.]
+      Similarly, suppose you are integrating on the interval $[a,b]$. Partition [a,b] into $N$ increments. Since $dW_t = \sqrt{dt}$, $dt \sim \frac{1}{N}$ and $(dt) (dW_t) \sim \frac{1}{N^{3/2}}$. It follows that:
+      \begin{align*}
+        \displaystyle\sum_{i = 1}^{N}\frac{1}{N^{3/2}} &= \frac{1}{N^{1/2}} \\
+        \lim\limits_{N \to \infty}\displaystyle\sum_{i = 1}^{N}\frac{1}{N^{3/2}} &= \lim\limits_{N \to \infty} \frac{1}{N^{1/2}} = \displaystyle\int_{a}^{b}(dt)(dW_t) = 0
+      \end{align*}
+    \end{proof}
+  \end{onlyenv}
+  \begin{onlyenv}<6->
+    This completes the multiplication table and provides the foundation for introducing Ito's lemma.
+  \end{onlyenv}
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{Ito's Lemma}
+  \begin{onlyenv}<1>
+  \begin{theorem}[Ito's formula]
+    Assume that process $X$ has a stochastic differential given by 
+    \begin{align*}
+      dX_t = \mu_t dt + \sigma_t dW_t
+    \end{align*}
+    Define the process $Z$ by $Z(t) = f(t, X_t)$. Then $Z$ has a stochastic differential given by
+    \begin{align*}
+      df(t, X_t) &= \left\{\frac{\partial f}{\partial t}(t, X_t) + \mu_t \frac{\partial f}{\partial x}(t,X_t) + \frac{1}{2}\sigma^2_t\frac{\partial^2 f}{\partial x^2}(t,X_t)\right\}dt + \sigma \frac{\partial f}{\partial x}(t, X_t)dW_t
+    \end{align*}
+  \end{theorem}
+  \end{onlyenv}
+  \begin{onlyenv}<2-6>
+    \begin{block}{Heuristic proof.}
+      \onslide<3-6>{
+      Using $f$ from the theorem, we will consider the second order Taylor expansion:
+      \begin{align*}
+        df = \frac{\partial f}{\partial t}dt + \frac{\partial f}{\partial x}dX_t + \frac{1}{2}\frac{\partial^2 f}{\partial x ^2}(dX_t)^2 + \frac{1}{2}\frac{\partial^2 f}{\partial t^2}(dt)^2 + \frac{\partial^2 f}{\partial t \partial x}dt dX_t.
+      \end{align*}
+      }
+      \onslide<4-6>{
+      By definition we have
+      \begin{align*}
+        dX_t = \mu_t dt + \sigma_t dW_t
+      \end{align*}
+      }
+      \onslide<5-6>{
+      so, we obtain
+      \begin{align*}
+        (dX_t)^2 = \mu^2_t(dt)^2 + 2\mu_t \sigma_t(dt)(dW_t) + \sigma^2_t(dW_t)^2,
+      \end{align*}
+      }
+      \onslide<6>{
+      From Ito's multiplication table we have:
+      \begin{align*}
+        (dX_t)^2 = \sigma^2_t dt
+      \end{align*}
+      }
+    \end{block}
+  \end{onlyenv}
+  \begin{onlyenv}<7->
+    \begin{proof}[Heuristic proof cont.]
+    \onslide<8->{
+      Substituting back for $(dX_t)^2$,
+      \begin{align*}
+        df = \frac{\partial f}{\partial t}dt + \frac{\partial f}{\partial x}dX_t + \frac{1}{2}\frac{\partial^2 f}{\partial x ^2}(\sigma^2_t)(dt) + \frac{1}{2}\frac{\partial^2 f}{\partial t^2}(dt)^2 + \frac{\partial^2 f}{\partial t \partial x}dt dX_t.
+      \end{align*}
+    }
+    \onslide<9->{
+      Applying Ito's multiplication table one more time,
+      \begin{align*}
+        df = \frac{\partial f}{\partial t}dt + \frac{\partial f}{\partial x}dX_t + \frac{1}{2}\frac{\partial^2 f}{\partial x ^2}(\sigma^2_t)(dt) + \frac{\partial^2 f}{\partial t \partial x}dt dX_t.
+      \end{align*}
+    }
+    \onslide<10->{
+      Now substituing in $(dX_t)$,
+      \begin{align*}
+        df &= \frac{\partial f}{\partial t}dt + \frac{\partial f}{\partial x}(\mu_t dt + \sigma_t dW_t) + \frac{1}{2}\frac{\partial^2 f}{\partial x ^2}(\sigma^2_t)(dt) + \frac{\partial^2 f}{\partial t \partial x}(\mu_t dt + \sigma_t dW_t)dt. \\
+        &= \left\{\frac{\partial f}{\partial t}(t, X_t) + \mu_t \frac{\partial f}{\partial x}(t,X_t) + \frac{1}{2}\sigma^2_t\frac{\partial^2 f}{\partial x^2}(t,X_t)\right\}dt + \sigma \frac{\partial f}{\partial x}(t, X_t)dW_t
+      \end{align*}
+    }
+    \end{proof}
   \end{onlyenv}
 \end{frame}
 
@@ -235,7 +355,7 @@
     \begin{block}{Claim:}
       The closed form of Geometric Brownian Motion is:
       \begin{align*}
-        X_t = X_0 e^{(\mu - \frac{\sigma^2}{2})dt + \sigma dW_t}
+        dX_t = X_0 e^{(\mu - \frac{\sigma^2}{2})dt + \sigma dW_t}
       \end{align*}
     \end{block}
   \end{onlyenv}
@@ -274,7 +394,7 @@
           &= (\mu - \frac{\sigma^2}{2})dt + \sigma dW_t.
         \end{align*}
         \onslide<8->{ 
-        It follows that $X_t = e^{(\mu - \frac{\sigma^2}{2})dt + \sigma dW_t}$
+        It follows that $dX_t = e^{(\mu - \frac{\sigma^2}{2})dt + \sigma dW_t}$
         }
     \end{proof}
   \end{onlyenv}
