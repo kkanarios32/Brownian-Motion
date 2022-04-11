@@ -540,7 +540,7 @@
     Now let's see how accurate this elementary model is when trying to predict the price of real stocks.
     }
   \end{onlyenv}
-  \begin{onlyenv}<5-6>
+  \begin{onlyenv}<5-8>
     \begin{block}{Use in Finance}
       Black Scholes Model is one of the most widely used models of stock price behaviour and is built on Geometric Brownian motion.
     \end{block}
@@ -548,16 +548,20 @@
       Some of the arguments for GBM are:
       \begin{itemize}
         \item<6-> The expected returns are independent of the value of the process, which is how stocks behave in reality,
+        \item<7-> A GBM process only assumes positive values, just like real stock prices.
+        \item<8-> Calculations with GBM processes are relatively easy.
       \end{itemize}
     \end{block}
   \end{onlyenv}
-  \begin{onlyenv}<7>
-    \begin{block}{Simulation}
-      Ten iterations based off Facebook closing price in the past year:
-      \begin{figure}
-        \centering
-        \includegraphics[width=.5\linewidth]{graphics/monte-carlo.png}
-      \end{figure}
+  \begin{onlyenv}<9->
+    \begin{block}{Drawbacks}
+    \begin{itemize}
+      \item<10-> In real stock prices, volatility changes over time (possibly stochastically), but in GBM, volatility is assumed constant.
+      \item <11-> In real life, stock prices often show jumps caused by unpredictable events or news, but in GBM, the path is continuous (no discontinuity).
+    \end{itemize}
+    \onslide<12->{
+    This is why GBM is just a building block for more advanced models. For example, one that models volatility stochastically is a stochastic volatility model, which is built off GBM.
+    }
     \end{block}
   \end{onlyenv}
 \end{frame}
