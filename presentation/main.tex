@@ -5,7 +5,7 @@
 
 % Title page details
 \title{Stochastic Calculus}
-\author{Kellen Kanarios}
+\author{Author: Kellen Kanarios \\ Mentor: Ethan Zell}
 \institute{University of Michigan}
 \date{\today}
 
@@ -126,14 +126,14 @@
     \end{onlyenv}
     \begin{onlyenv}<2-3>
       \begin{block}{Proof.}
-        Let $P = \{0 = t_0 \leq t_1 \leq \dots \leq t_m = t\}$ be a partition of the interval $[0,t]$. Then the quadratic variation on $P$ is:
+        Let us fix a point $t$ and subdivide the interval $[0,t]$ into $n$ equally large subintervals of the form $[k\frac{t}{n}, (k+1)\frac{t}{n}]$, where $k = 0,1,\ldots,n-1$. Then the quadratic variation on $P$ is:
         \begin{align*}
-          [W]^{P}_{t} &= \displaystyle\sum_{k = 1}^{m}(W_{t_k} - W_{t_{k-1}})^2 .
+          [W]^{P}_{t} &= \displaystyle\sum_{i = 1}^{n}(W_{i\frac{t}{n}} - W_{(i-1)(\frac{t}{n})})^2 .
         \end{align*}
         \onslide<3->{
           Therefore,
           \begin{align*}
-            \mathbb{E}\left[[W]^{P}_{t}\right] &= \displaystyle\sum_{k = 1}^{m}\mathbb{E}\left[(W_{t_k} - W_{t_{k-1}})^2\right].
+            \mathbb{E}\left[[W]^{P}_{t}\right] &= \displaystyle\sum_{i = 1}^{n}\mathbb{E}\left[(W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})})^2\right].
           \end{align*}
         }
       \end{block}
@@ -147,24 +147,24 @@
     \end{onlyenv}
     \begin{onlyenv}<5-8>
       \begin{block}{Proof cont.}
-        Since $W_{t_{k}} - W_{t_{k-1}} \in \mathcal{N}(0, t_{k} - t_{k-1})$, 
+        Since $W_{(i)(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \in \mathcal{N}(0, i(\frac{t}{n}) - (i-1)(\frac{t}{n}))$, 
         \begin{align*}
-          \mathbb{E}(W_{t_{k}} - W_{t_{k-1}}) = 0.
+          \mathbb{E}(W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})}) = 0.
         \end{align*}
         \onslide<6->{ 
           It follows that:
           \begin{align*}
-            (\mathbb{E}\left[W_{t_{k}} - W_{t_{k-1}}\right])^2 = 0 .
+            (\mathbb{E}\left[W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})}\right])^2 = 0 .
           \end{align*}
         }
         \onslide<7->{
-          Thus, $Var(W_{t_{k}} - W_{t_{k-1}}) = E(\left[W_{t_{k}} - W_{t_{k-1}}\right]^2)$.
+          Thus, $Var(W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})}) = E(\left[W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})}\right]^2)$.
         }
         \onslide<8->{%
           \begin{block}{}
-            Since $\mathbb{E}[(W_{t_{k}} - W_{t_{k-1}})^2] = Var\left[W_{t_{k}} - W_{t_{k-1}}]$, we can write:
+            Since $\mathbb{E}[(W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})})^2] = Var\left[W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})}]$, we can write:
             \begin{align*}
-              \mathbb{E}\left[[W]^{P}_{t}\right] &= \mathbb{E}\left[ \displaystyle\sum_{k = 1}^{m}(W_{t_k} - W_{t_{k-1}})^2 \right] = Var \left[\displaystyle\sum_{k = 1}^{m}\left[ W_{t_k} - W_{t_{k-1}} \right] \right]. \\
+              \mathbb{E}\left[[W]^{P}_{t}\right] &= \mathbb{E}\left[ \displaystyle\sum_{k = 1}^{n}(W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})})^2 \right] = Var \left[\displaystyle\sum_{k = 1}^{n}\left[ W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \right] \right]. \\
             \end{align*}
           \end{block}
         }
@@ -172,10 +172,11 @@
     \end{onlyenv}
     \begin{onlyenv}<9>
       \begin{block}{Stats fact}
-      \begin{align*}
-        Var \left[\displaystyle\sum_{k = 1}^{m}\left[ W_{t_k} - W_{t_{k-1}} \right] \right] &= \displaystyle\sum_{k = 1}^{m}Var\left[ W_{t_k} - W_{t_{k-1}} \right] \\ 
-        &+ \displaystyle\sum_{k \neq \ell}^{m}Cov\left(\left[ W_{t_k} - W_{t_{k-1}} \right], \left[ W_{t_{\ell}} - W_{t_{\ell-1}} \right]\right)
-      \end{align*}
+      \begin{multline*}
+        Var\left[\displaystyle\sum_{k = 1}^{n} \left[W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \right] \right] = 
+        \displaystyle\sum_{k = 1}^{n}Var\left[ W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \right] \\
+         + \displaystyle\sum_{i \neq \ell}^{n}Cov\left(\left[ W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \right], \left[ W_{\ell(\frac{t}{n})} - W_{(\ell-1)(\frac{t}{n})} \right]\right)
+      \end{multline*}
       \end{block}
     \end{onlyenv}
     \begin{onlyenv}<10-13>
@@ -183,19 +184,19 @@
       \onslide<10->{%
         Since Wiener increments are independent of eachother, 
         \begin{align*}
-          Cov\left(\left[ W_{t_k} - W_{t_{k-1}} \right], \left[ W_{t_{\ell}} - W_{t_{\ell-1}} \right]\right) = 0.
+          Cov\left(\left[ W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \right], \left[ W_{\ell(\frac{t}{n})} - W_{(\ell-1)(\frac{t}{n})} \right]\right) = 0.
         \end{align*}
       }
       \onslide<11->{%
       Therefore, 
       \begin{align*}
-        E\left[ \left[ W \right]^{P}_{t}] \right] = \displaystyle\sum_{k = 1}^{m}Var\left[ W_{t_{k}} - W_{t_{k-1}} \right]
+        E\left[ \left[ W \right]^{P}_{t}] \right] = \displaystyle\sum_{k = 1}^{n}Var\left[ W_{i(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \right]
       \end{align*}
       }
       \onslide<12->{%
-        Using $W_{t_k} - W_{t_{k-1}} \in \mathcal{N}(0, t_k - t_{k-1})$:
+        Using $W_{(i)(\frac{t}{n})} - W_{(i-1)(\frac{t}{n})} \in \mathcal{N}(0, i(\frac{t}{n}) - (i-1)(\frac{t}{n}))$:
         \begin{align*}
-          \mathbb{E}\left[[W]^{P}_{t}\right] &= \displaystyle\sum_{k = 1}^{m}(t_{k} - t_{k-1}) \\
+          \mathbb{E}\left[[W]^{P}_{t}\right] &= \displaystyle\sum_{k = 1}^{n}(i(\frac{t}{n}) - (i-1)(\frac{t}{n})) \\
           &= t
         \end{align*}
       }
@@ -211,7 +212,7 @@
     \end{onlyenv}
     \begin{onlyenv}<15-16>
       \begin{block}{Proof.}
-        Let us fix a point $t$ and subdivide the interval $[0,t]$ into $n$ equally large subintervals of the form $[k\frac{t}{n}, (k+1)\frac{t}{n}]$, where $k = 0,1,\ldots,n-1$. These subintervals will be our partition $P$. Therefore, we must show that :
+        Therefore, we must show that :
         \begin{align*}
           Var(\lim\limits_{\Vert P \Vert \to 0} \left[ W \right]^{P}_t) = 0.
         \end{align*}
