@@ -5,7 +5,7 @@
 
 % Title page details
 \title{Stochastic Calculus}
-\author{Author: Kellen Kanarios \\ Mentor: Ethan Zell}
+\author{Kellen Kanarios \\ \vskip 10pt \footnotesize{Mentor: Ethan Zell}}
 \institute{University of Michigan}
 \date{\today}
 
@@ -103,15 +103,10 @@
   \begin{onlyenv}<1->
     \begin{definition}
       Let $X$ be a stochastic process. Suppose $P$ is a partition of $[0,t]$ denoted $t_k$ and let $\lVert P \rVert$ be the mesh of the partition then the \textbf{quadratic variation} of $X$ is defined to be:
-          \begin{align*}
-            [X]_t = \lim\limits_{\lVert P \rVert \to 0} \displaystyle\sum_{k = 1}^{n}(X_{t_k} - X_{t_{k-1}})^2.
-          \end{align*}
+      \begin{align*}
+        [X]_t = \lim\limits_{\lVert P \rVert \to 0} \displaystyle\sum_{k = 1}^{n}(X_{t_k} - X_{t_{k-1}})^2.
+      \end{align*}
     \end{definition}
-  \end{onlyenv}
-  \begin{onlyenv}<2->
-    \begin{block}{Comments}
-      Note that Quadratic Variation itself is a stochastic process. An intuitive way to think about quadratic variation is the internal clock of a process, describing how randomness accumulates over time.
-    \end{block}
   \end{onlyenv}
 \end{frame}
 
@@ -272,8 +267,7 @@
       \begin{proof}
         By dominating convergence theorem (outside scope),
         \begin{align*}
-          \mathbb{E}\left( \lim\limits_{\Vert P \Vert \to 0} \left[ W \right]^{P}_{t} \right) &= \lim\limits_{\Vert P \Vert \to 0},
-          \mathbb{E}\left(\left[ W \right]^{P}_{t} \right), \\
+          \mathbb{E}\left( \lim\limits_{\Vert P \Vert \to 0} \left[ W \right]^{P}_{t} \right) &= \lim\limits_{\Vert P \Vert \to 0} \mathbb{E}\left(\left[ W \right]^{P}_{t} \right), \\
           &= \lim\limits_{\Vert P \Vert \to 0} t, \\
           &= t.
         \end{align*}
@@ -299,35 +293,26 @@
 
 \begin{frame}[t]
   \frametitle{The Stochastic Integral}
-  \begin{onlyenv}<1>
-    \begin{block}{Motivation}
-      Let $h_t$ be a stochastic process that represents our trading strategy and let $W_t$ be the price of the stock at the given time. Then
-      \begin{align*}
-        \displaystyle\int_{0}^{t} h_t dW_t
-      \end{align*}
-      would be our gains or losses from this strategy.
-    \end{block}
-  \end{onlyenv}
-  \begin{onlyenv}<2-4>
+  \begin{onlyenv}<1-3>
     \begin{block}{The Problem}
       Integrals of the form $\displaystyle\int_{0}^{t}g_s dW_s$ for some stochastic process $g_s$.
     \end{block}
   \end{onlyenv}
-  \begin{onlyenv}<3-4>
+  \begin{onlyenv}<2-3>
     \begin{block}{Possible Solution 1}
       Try to define like the Riemman Integral:
       \begin{enumerate}
-        \item<3-> $\displaystyle\sum_{k = 1}^{n}g_s(W_{t_{k+1}} - W_{t_{k}})$,
-        \item<4-> Not possible due to locally unbounded variation of a Wiener Process.
+        \item<2-> $\displaystyle\sum_{k = 1}^{n}g_s(W_{t_{k+1}} - W_{t_{k}})$,
+        \item<3-> Not possible due to locally unbounded variation of a Wiener Process.
       \end{enumerate}
     \end{block}
   \end{onlyenv}
-  \begin{onlyenv}<5-6>
+  \begin{onlyenv}<4-5>
     \begin{definition}
       A stochastic process is \textbf{simple} on $[a,b]$ when there exists deterministic points in time $a = t_0 < t_1 < \dots < t_n = b$ such that $g_s = g_{t_k}$ for all $s \in [t_k, t_{k+1}]$.
     \end{definition}
   \end{onlyenv}
-  \begin{onlyenv}<6>
+  \begin{onlyenv}<5>
       \begin{block}{Real Solution}
         Now we can define the stochastic integral by
         \begin{align*}
@@ -336,14 +321,14 @@
         for some simple stochastic process $g_s$.
       \end{block}
   \end{onlyenv}
-  \begin{onlyenv}<7->
+  \begin{onlyenv}<6->
     \begin{block}{Generalized Version}
       By the \textbf{simple approximation theorem} (outside of scope), for some stochastic process $g_s$ there exists a sequence of simple functions $g_{s}^{n}$, such that $g_{s}^{n} \to g_{s}$. Therefore, we define our integral for non-simple functions as:
       \begin{align*}
         \displaystyle\int_{a}^{b}g_{s} dW_t = \lim\limits_{n \to \infty}\displaystyle\int_{a}^{b} g_{s}^{n}dW_t.
       \end{align*}
     \end{block}
-    \onslide<8->{ 
+    \onslide<7->{ 
     \begin{block}{Something to think about}
       How might we evaluate $\displaystyle\int_{0}^{t} W_s dW_s$?
     \end{block}
@@ -482,7 +467,7 @@
     \begin{solution}
       Define $X$ by $X_t = W_t$ and set $f(t,x) = x^2$. In terms of Ito's formula we have
       \begin{align*}
-        \frac{\partial f}{\partial t}(t,x) = 0,\ \frac{\partial f}{\partial x}(t,x) = 2x,\ \frac{\partial^2 f}{\partial t^2}(t,x) = 2.
+        \frac{\partial f}{\partial t}(t,x) = 0,\ \frac{\partial f}{\partial x}(t,x) = 2x,\ \frac{\partial^2 f}{\partial x^2}(t,x) = 2.
       \end{align*}
       \onslide<11->{
       Substituting,
@@ -530,18 +515,15 @@
       \end{block}
     }
   \end{onlyenv}
-  \begin{onlyenv}<3-4>
+  \begin{onlyenv}<3>
     \begin{block}{Closed form}
       With our toolbox of Ito calculus and the ability to solve linear ODE's, it can be easily shown that the closed form of Geometric Brownian Motion is:
       \begin{align*}
         dX_t = X_0 e^{(\mu - \frac{\sigma^2}{2})dt + \sigma dW_t}.
       \end{align*}
     \end{block}
-    \onslide<4->{ 
-    Now let's see how accurate this elementary model is when trying to predict the price of real stocks.
-    }
   \end{onlyenv}
-  \begin{onlyenv}<5-8>
+  \begin{onlyenv}<4-7>
     \begin{block}{Use in Finance}
       Black Scholes Model is one of the most widely used models of stock price behaviour and is built on Geometric Brownian motion.
     \end{block}
@@ -554,7 +536,7 @@
       \end{itemize}
     \end{block}
   \end{onlyenv}
-  \begin{onlyenv}<9->
+  \begin{onlyenv}<8->
     \begin{block}{Drawbacks}
     \begin{itemize}
       \item<10-> In real stock prices, volatility changes over time (possibly stochastically), but in GBM, volatility is assumed constant.
